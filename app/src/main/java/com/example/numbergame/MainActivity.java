@@ -10,7 +10,6 @@ import android.widget.Button;
 import androidx.gridlayout.widget.GridLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
 import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
