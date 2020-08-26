@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">Number Game</string>
+    <string name="_30s">30s</string>
+    <string name="_31_7">31+7</string>
+    <string name="_0_0">0/0</string>
+    <string name="go">Go</string>
+    <string name="_38">38</string>
+    <string name="_100">100</string>
+    <string name="_36">36</string>
+    <string name="_37">37</string>
+    <string name="textview">TextView</string>
+    <string name="correct">Correct</string>
+</resources>
