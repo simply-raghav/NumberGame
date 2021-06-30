@@ -3,6 +3,8 @@ package com.example.numbergame;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.View;
@@ -10,10 +12,12 @@ import android.widget.Button;
 import androidx.gridlayout.widget.GridLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import java.util.Arrays;
 import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
-    Button go;
+    Button play;
     LinearLayout ll;
     GridLayout gl;
     Button[] options;
@@ -28,15 +32,21 @@ public class MainActivity extends AppCompatActivity {
     int ansButton;
     Bundle bun;
     Button playAgainB;
+
+    int rand1, rand2, timerCount;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         bun = savedInstanceState;
         setContentView(R.layout.activity_main);
+        play = findViewById(R.id.playAgainB);
+
         //Variables Allocation
+        rand1 = 21;
         nQues = 0;
         correct = 0;
-        go = findViewById(R.id.startB);
         ll = findViewById(R.id.linearLayout1);
         gl = findViewById(R.id.gridLayout);
         options = new Button[4];
@@ -51,37 +61,19 @@ public class MainActivity extends AppCompatActivity {
         scoreTV = findViewById(R.id.scoreTV);
         rand = new Random();
         //Changing the visibility of controls on app start
-        ll.setVisibility(View.INVISIBLE);
-        go.setVisibility(View.VISIBLE);
-        gl.setVisibility(View.INVISIBLE);
-        resultTV.setVisibility(View.INVISIBLE);
-        playAgainB.setVisibility(View.INVISIBLE);
-        go.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                goClick(v);
-                timer();
-            }
-        });
+        goClick(play);
+        timer();
 
     }
     //Play Again Button
     public void playAgain(View v){
         nQues = 0;
         correct = 0;
-        ll.setVisibility(View.INVISIBLE);
-        go.setVisibility(View.VISIBLE);
-        gl.setVisibility(View.INVISIBLE);
-        resultTV.setVisibility(View.INVISIBLE);
-        playAgainB.setVisibility(View.INVISIBLE);
-
+        startActivity(new Intent(this, FirstActivity.class));
     }
     //go button on click event code
     public void goClick(View view)
     {
-        ll.setVisibility(View.VISIBLE);
-        go.setVisibility(View.INVISIBLE);
-        gl.setVisibility(View.VISIBLE);
         a = rand.nextInt(21);
         b = rand.nextInt(21);
         mathsTVPrint = a + " + " + b;
@@ -97,7 +89,9 @@ public class MainActivity extends AppCompatActivity {
                 ran = Integer.toString(rand.nextInt(41));
                 if(ran.equals(ans))
                 {
-                    i--;
+                    while(ran.equals(ans) || Arrays.asList(options).contains(ran)){
+                        ran = Integer.toString(rand.nextInt(41));
+                    }
                 }
                 else
                 {
@@ -143,7 +137,7 @@ public class MainActivity extends AppCompatActivity {
                 acc *= 100;
                 ll.setEnabled(false);
                 gl.setEnabled(false);
-                @SuppressLint("DefaultLocale") String str = String.format("%.2f", acc);
+                String str = String.format("%.2f", acc);
                 if(correct == 0 || nQues == 0)
                 {
                     str = "0";
@@ -156,3 +150,25 @@ public class MainActivity extends AppCompatActivity {
         }.start();
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
